@@ -7,8 +7,9 @@ from datasets import load_dataset
 from peft import LoraConfig, get_peft_model, TaskType
 
 MODEL_NAME = "meta-llama/Meta-Llama-3-8B"  # Change as needed
-MINI_MODEL_NAME = "meta-llama/Llama-3.2-1B"
+#MINI_MODEL_NAME = "meta-llama/Llama-3.2-1B"
 
+MINI_MODEL_NAME = "TinyLlama/TinyLlama_v1.1"
 DATA_PATH = "train_data.jsonl"             # Update to your dataset
 
 
@@ -18,7 +19,7 @@ def login_hf():
 
 def download_model():
     print(f"Downloading model/tokenizer: {MODEL_NAME} (Standard, uses available GPU/CPU RAM)")
-    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype="auto", device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained(MODEL_NAME, torch_dtype="auto", device_map="cpu")
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
     print("Model and tokenizer downloaded and cached locally.")
 
@@ -50,7 +51,7 @@ def local_download_disk_offload():
 
 def download_mini_model():
  	print(f"Downloading model/tokenizer: {MINI_MODEL_NAME} (Standard, uses available GPU/CPU RAM)")
- 	model = AutoModelForCausalLM.from_pretrained(MINI_MODEL_NAME,device_map="auto")
+ 	model = AutoModelForCausalLM.from_pretrained(MINI_MODEL_NAME,device_map="cpu")
  	tokenizer = AutoTokenizer.from_pretrained(MINI_MODEL_NAME)
  	print("Model and tokenizer downloaded and cached locally.")
 
